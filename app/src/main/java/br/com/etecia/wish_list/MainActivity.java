@@ -1,6 +1,7 @@
 package br.com.etecia.wish_list;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -30,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
         wishModalList.add(new WishModal("Java for Android", "anything", R.drawable.genielamp));
         wishModalList.add(new WishModal("HTML and CSS", "anything", R.drawable.genielamp));
 
-        // in below line we are setting adapter to our recycler view.
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        wishRV.setLayoutManager(linearLayoutManager);
         wishRV.setAdapter(wishAdapter);
     }
 }
