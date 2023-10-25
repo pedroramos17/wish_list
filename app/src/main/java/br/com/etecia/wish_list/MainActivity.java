@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView wishRV = findViewById(R.id.idRVWish);
 
-        List<WishModal> wishModalList = new ArrayList<WishModal>();
+        List<WishModal> wishModalList = new ArrayList<>();
 
         // we are initializing our adapter class and passing our arraylist to it.
         WishAdapter wishAdapter = new WishAdapter(this, wishModalList);
