@@ -1,5 +1,6 @@
 package br.com.etecia.wish_list;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,25 +10,28 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+import java.util.List;
 
-    private String[] localDataSet;
+public class WishAdapter extends RecyclerView.Adapter<WishAdapter.ViewHolder> {
+
+    private final Context context;
+    private final List<WishModal> wishModalList;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView title, subhead;
+        private final TextView header, subhead;
         private final ImageView headerImage;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
-            title = (TextView) view.findViewById(R.id.title);
+            header = (TextView) view.findViewById(R.id.header);
             subhead = (TextView) view.findViewById(R.id.subhead);
             headerImage = (ImageView) view.findViewById(R.id.header_image);
         }
 
-        public TextView getTitle() {
-            return title;
+        public TextView getHeader() {
+            return header;
         }
         public TextView getSubhead() {
             return subhead;
@@ -41,11 +45,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     /**
      * Initialize the dataset of the Adapter
      *
-     * @param dataSet String[] containing the data to populate views to be used
+     * @param wishModalList List<WishModal> containing the data to populate views to be used
      * by RecyclerView
      */
-    public RecyclerAdapter(String[] dataSet) {
-        localDataSet = dataSet;
+    public WishAdapter(Context context, List<WishModal> wishModalList) {
+        this.context = context;
+        this.wishModalList = wishModalList;
     }
 
     @NonNull
@@ -62,13 +67,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, final int position) {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        holder.getTitle().setText(localDataSet[position]);
-        holder.getSubhead().setText(localDataSet[position]);
-        holder.getHeaderImage().setImageResource(Integer.parseInt(localDataSet[position]));
+        WishModal model = wishModalList.get(position);
+        holder.getHeader().setText(model.getHeader());
+        holder.getSubhead().setText(model.getSubHeader());
+        holder.getHeaderImage().setImageResource(model.getImage());
     }
 
     @Override
     public int getItemCount() {
-        return localDataSet.length;
+        return wishModalList.size();
     }
 }
